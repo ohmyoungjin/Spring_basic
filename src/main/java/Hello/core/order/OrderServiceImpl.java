@@ -12,9 +12,11 @@ public class OrderServiceImpl implements  OrderService{
     //private DiscountPolicy discountPolicy = new FixDiscountPolicy();
     //10%할인 이 부분으로 변경하는 순간 service class file도 변경되기 때문에 OCP에 위반된다.
     //service가 구현체도 의존하게 됨. => DIP위반 추상에만 의존하도록 변경(인터페이스에만 의존하도록)
+    //***
     //private DiscountPolicy discountPolicy = new RateDiscountPolicy();
-    //변경
+    //변경 => DI가 이루어지지 않은 상태에서 돌리면 NPE (null pointer execption발생)
     private DiscountPolicy discountPolicy;
+    //해결 방안 => 누군가가 클라이언트인 OrderServiceImpl 에게 discountPolicy의 구현객체(imp)를 대신 생성하고 주입해줘야 한다. (DI)
 
 
     @Override
