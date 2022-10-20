@@ -9,8 +9,14 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 class OrderServiceTest {
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+    private final MemberService memberService ;
+    private final OrderService orderService ;
+
+    public OrderServiceTest(MemberService memberService, OrderService orderService) {
+        this.memberService = memberService;
+        this.orderService = orderService;
+    }
+
     @Test
     void createOrder() {
         long memberId = 1L;

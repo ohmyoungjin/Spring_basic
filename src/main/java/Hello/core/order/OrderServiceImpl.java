@@ -6,8 +6,10 @@ import Hello.core.member.MemberRepository;
 import Hello.core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements  OrderService{
+    //***service에서 필요한 구현체들을 선언만 해두고
+    //생성자로 주입해준다 !!! ***** 중요
+    private final MemberRepository memberRepository ;
 
-    private MemberRepository memberRepository = new MemoryMemberRepository();
     //1000원 할일
     //private DiscountPolicy discountPolicy = new FixDiscountPolicy();
     //10%할인 이 부분으로 변경하는 순간 service class file도 변경되기 때문에 OCP에 위반된다.
@@ -15,9 +17,14 @@ public class OrderServiceImpl implements  OrderService{
     //***
     //private DiscountPolicy discountPolicy = new RateDiscountPolicy();
     //변경 => DI가 이루어지지 않은 상태에서 돌리면 NPE (null pointer execption발생)
-    private DiscountPolicy discountPolicy;
+    //private DiscountPolicy discountPolicy;
     //해결 방안 => 누군가가 클라이언트인 OrderServiceImpl 에게 discountPolicy의 구현객체(imp)를 대신 생성하고 주입해줘야 한다. (DI)
+    private final DiscountPolicy discountPolicy;
 
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
