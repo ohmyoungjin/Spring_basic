@@ -3,14 +3,10 @@ package Hello.core;
 import Hello.core.member.Grade;
 import Hello.core.member.Member;
 import Hello.core.member.MemberService;
-import Hello.core.member.MemberServiceImpl;
 import Hello.core.order.Order;
 import Hello.core.order.OrderService;
-import Hello.core.order.OrderServiceImpl;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class OrderApp {
+public class OrderApp_java {
 
     public static void main(String[] args) {
         //main은 컨트롤러라고 생각하면 된다.
@@ -20,11 +16,9 @@ public class OrderApp {
         //MemberService memberService = new MemberServiceImpl(null);
         //AppConfig에서 사용하지 않으면 서비스 에서 구현 객체를 설정해줘야 하므로 DIP 정책 위반
         //OrderService orderService = new OrderServiceImpl(null, null);
-        //스프링 컨테이너를 사용한 로직
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
-        OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
-
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
         Long memberId = 1L;
         //주문하는 인원 세팅
         Member member = new Member(memberId, "memberA", Grade.VIP);

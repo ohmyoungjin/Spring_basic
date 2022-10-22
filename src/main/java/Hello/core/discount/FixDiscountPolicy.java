@@ -4,6 +4,7 @@ import Hello.core.member.Grade;
 import Hello.core.member.Member;
 
 public class FixDiscountPolicy implements  DiscountPolicy{
+//  discount policy를 의존하고 있다 ! 구현체 이기 때문에 !
 
     private int discountFixAmount = 1000; // 1000원 할인
 

@@ -1,5 +1,6 @@
 package Hello.core.member;
 
+//정적인 클래스 다이어그램을 나타내는 파일
 public class MemberServiceImpl implements  MemberService{
     //DI개념이 적용되지 않은 부분 이렇게 service쪽에서 어떤 구현체를 쓸 것인가를 정해줘야 함 .. 이건 SRP원칙에 위반된다.
     //private MemberRepository memberRepository = new MemoryMemberRepository();
