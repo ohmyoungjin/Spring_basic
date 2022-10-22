@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 //  동적인 객체 인스턴스 의존 관계를 나타내는 config 파일
 //  AppConfig에 설정을 구성한다는 뜻의 @Configuration 을 붙여준다.
 //  각 메서드에 @Bean 을 붙여준다. 이렇게 하면 스프링 컨테이너에 스프링 빈으로 등록한다.
+//팩토리 메서드로 빈을 등록하는 방법이다 !
 @Configuration
 public class AppConfig {
 //    리팩터링 전
