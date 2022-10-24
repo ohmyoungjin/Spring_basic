@@ -42,8 +42,13 @@ public class ConfigurationSingletonTest {
 //      결과 값 : bean : class Hello.core.AppConfig$$EnhancerBySpringCGLIB$$8814cd10
         System.out.println("bean : " + bean.getClass());
 //      순수한 클래스라면 class hello.core.AppConfig 이와 같이 나와야 한다.
+//      스프링이 CGLIB라는 바이트코드 조작 라이브러리를 사용해서 AppConfig
+//      클래스를 상속받은 임의의 다른 클래스를 만들고, 그 다른 클래스를 스프링 빈으로 등록한다.
 //      이와 같이 GBLIB에서 해당하는 빈이 스프링 컨테이너에 등록되어 있으면 등록된 빈을 반환해주고
 //      없으면 만들어서 반환해준다 = > 이로 인해 싱글톤이 보장된다.
+//      Appconfig의 @Configuration anniotation을 빼면 순수한 자바 코드가 돼서
+//      memberRepository를 총 3번 호출 =>
+//      싱글톤이 깨지게 되며, 메모리 낭비로 이어진다
 
 
     }
