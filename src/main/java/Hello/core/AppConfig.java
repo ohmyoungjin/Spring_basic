@@ -35,11 +35,18 @@ public class AppConfig {
     //@Bean memberService -> new MemoryMemberRepository()
     //@Bean orderService -> new MemoryMemberRepository()
     //이렇게 총 두 번을 호출하게 되어, 싱글톤이 깨진다고 생각이 될 수도 있다.
+    //생각한 흐름
     //call AppConfig.memberService
     //call AppConfig.memberRepository
     //call AppConfig.memberRepository
     //call AppConfig.orderService
     //call AppConfig.memberRepository
+
+    //실제 로그
+    //call AppConfig.memberService
+    //call AppConfig.memberRepository
+    //call AppConfig.orderService
+
     @Bean
     public MemberService memberService() {
         System.out.println("call AppConfig.memberService");
