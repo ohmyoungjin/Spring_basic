@@ -32,6 +32,9 @@ public class AppConfig {
 //  *****annotation을 달면 DI 컨테이너에서 이 객체를 생성하고 컨테이너에 넣어서 관리하게 된다.
 //  @Bean(name="")이름을 명시하면 명시한 이름으로 사용할 수 있지만 이름을 따로 지정하지 않으면
 //  메서드 명 ex) memberService로 default저장하게 된다
+    //@Bean memberService -> new MemoryMemberRepository()
+    //@Bean orderService -> new MemoryMemberRepository()
+    //이렇게 총 두 번을 호출하게 되어, 싱글톤이 깨진다고 생각이 될 수도 있다.
     @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
