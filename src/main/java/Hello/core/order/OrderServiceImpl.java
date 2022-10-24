@@ -4,7 +4,10 @@ import Hello.core.discount.DiscountPolicy;
 import Hello.core.member.Member;
 import Hello.core.member.MemberRepository;
 import Hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements  OrderService{
     //***service에서 필요한 구현체들을 선언만 해두고
     //생성자로 주입해준다 !!! ***** 중요
@@ -21,6 +24,7 @@ public class OrderServiceImpl implements  OrderService{
     //해결 방안 => 누군가가 클라이언트인 OrderServiceImpl 에게 discountPolicy의 구현객체(imp)를 대신 생성하고 주입해줘야 한다. (DI)
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;

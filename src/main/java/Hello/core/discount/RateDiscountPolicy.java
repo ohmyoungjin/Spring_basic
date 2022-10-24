@@ -2,7 +2,9 @@ package Hello.core.discount;
 
 import Hello.core.member.Grade;
 import Hello.core.member.Member;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RateDiscountPolicy implements DiscountPolicy{
 //  discount policy를 의존하고 있다 ! 구현체 이기 때문에 !
     private int discountPercent = 20;
