@@ -1,5 +1,8 @@
 package Hello.core;
 
+import Hello.core.member.MemberRepository;
+import Hello.core.member.MemoryMemberRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -26,6 +29,14 @@ import org.springframework.context.annotation.FilterType;
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class)
 )
 public class AutoAppConfig {
-
-
+    //빈 충돌
+    //수동 빈 등록 VS 자동 빈 등록 끼리 충돌이 나게 되면
+    //수동 빈 등록이 우선권을 가지게 되어 override가 발생된다.
+    //하지만 개발자 의도와는 상관없이 설정이 꼬이는 경우가 있어서 충돌이 나게되면 exception을 내린다
+    //application.properties에 setting spring.main.allow-bean-definition-overriding=true값으로 설정하면
+    //Exception을 떨어뜨리지 않는다.
+    @Bean(name = "memoryMemberRepository")
+    MemberRepository memberRepository(){
+        return new MemoryMemberRepository();
+    }
 }
