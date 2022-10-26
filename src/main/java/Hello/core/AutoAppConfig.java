@@ -8,6 +8,15 @@ import org.springframework.context.annotation.FilterType;
 @Configuration
 //@ComponentScan은 이름 그대로 @Component annotation이 붙은 클래스를 스프링 빈으로 등록한다.
 @ComponentScan(
+        //컴포넌트 스캔할 패키지를 설정한다 밑에 기재된 하위 패키지 및 클래스들만 찾도록 지정한다.
+        //이렇게 지정해줘야지 범위를 줄여서 컴파일 되는 시간을 줄인다.
+        basePackages = "Hello.core.member",
+        //default값은 해당 ComponentScan이 지정된 ex)Hello.core 하위 패키지만 찾는다.
+        //지금 구조를 보면 Hello.core바로 밑에 ComponentScan을 쓰게 될 설정파일을 만들어놓는다.
+        //참고로 스프링 부트를 사용하면 스프링 부트의 대표 시작 정보인 @SpringBootApplication 를 이
+        //프로젝트 시작 루트 위치에 두는 것이 관례이다
+        //이 class에서 제일 위의 패키지까지만 찾도록 한다.
+        basePackageClasses = AutoAppConfig.class,
         //scan에서 제외할 빈을 명시한다.
         //Configuration(Appconfig)은 수동으로 등록되는 하는 파일이여서 자동으로 등록되면 안된다.
 //        컴포넌트 스캔을 사용하면 @Configuration 이 붙은 설정 정보도 자동으로 등록되기 때문에,
