@@ -23,7 +23,7 @@ public class OrderServiceImpl implements  OrderService{
     //private DiscountPolicy discountPolicy;
     //해결 방안 => 누군가가 클라이언트인 OrderServiceImpl 에게 discountPolicy의 구현객체(imp)를 대신 생성하고 주입해줘야 한다. (DI)
     private final DiscountPolicy discountPolicy;
-
+    //생성자 주입
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
@@ -37,6 +37,17 @@ public class OrderServiceImpl implements  OrderService{
 
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
+
+//    setter주입
+//    @Autowired
+//    public void setMemberRepository(MemberRepository memberRepository) {
+//        this.memberRepository = memberRepository;
+//    }
+//
+//    @Autowired
+//    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+//        this.discountPolicy = discountPolicy;
+//    }
     //테스트 용도
     public MemberRepository getMemberRepository() {
         return memberRepository;
