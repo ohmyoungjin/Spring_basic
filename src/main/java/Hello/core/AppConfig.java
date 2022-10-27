@@ -66,6 +66,7 @@ public class AppConfig {
     }
     @Bean
     public DiscountPolicy discountPolicy() {
+        System.out.println("call AppConfig.discountPolicy");
         return new RateDiscountPolicy();
     }
 

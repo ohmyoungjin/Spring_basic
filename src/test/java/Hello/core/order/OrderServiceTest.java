@@ -15,15 +15,16 @@ import org.springframework.stereotype.Service;
 
 import static org.junit.jupiter.api.Assertions.*;
 class OrderServiceTest {
-
-//    @Autowired MemberService memberService ;
-//    @Autowired DiscountPolicy discountPolicy;
-    @Autowired MemberService memberService;
+    ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+    @Autowired MemberService memberService ;
+    @Autowired DiscountPolicy discountPolicy;
 
     //OrderService orderService ;
     //@Autowired MemberRepository memberRepository;
     @BeforeEach
     public void beforeEach() {
+        //싱글톤 방식으로 사용하기
+        //java 쪽에서 new 개념으로 만드는거라 싱글톤이 유지되지 못한다.
 //        AppConfig appConfig = new AppConfig();
 //        memberService = appConfig.memberService();
 //        orderService = appConfig.orderService();
@@ -41,13 +42,19 @@ class OrderServiceTest {
 
     //필드 주입하게 되면 해당하는 service로직에 값을 저장해줄 수 없으므로
     //service에 다시 setter을 만들어 줘야한다.
+    //필드 주입 후 하게 되면 필요한 구현체를 DI를 못 받기 때문에 spring container가 없게 되면 테스트 자체가 불가능하다.
     @Test
     void fieldInjectionTest() {
 //        long memberId = 1L;
 //        Member member = new Member(memberId, "memberA", Grade.VIP);
 //        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
-//        MemberService memberService = ac.getBean("memberService", MemberService.class);
+//        OrderService orderService =ac.getBean("orderService", OrderService.class);
+//        MemberService memberService =ac.getBean("memberService", MemberService.class);
         System.out.println("memberService : "   + memberService);
+        long memberId = 1L;
+        Member member = new Member(memberId, "memberA", Grade.VIP);
+        memberService.join(member);
+        //orderService.createOrder(memberId, "itemA", 10000);
         //memberService.join(member);
 //        this.memberService.join(member);
 //        orderService.createOrder(memberId, "itemA", 10000);
