@@ -19,7 +19,6 @@ public class MemberServiceImpl implements  MemberService{
     //@Autowired annotation을 명시하게 되면 자동으로 의존관계를 주입해준다
     @Autowired // = > ac.getBean(MemberRepository.class)로 동작한다
     public MemberServiceImpl(MemberRepository memberRepository) {
-        System.out.println("MemberRepository");
         this.memberRepository = memberRepository;
     }
 

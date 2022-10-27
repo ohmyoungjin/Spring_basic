@@ -18,7 +18,7 @@ class OrderServiceTest {
 
 //    @Autowired MemberService memberService ;
 //    @Autowired DiscountPolicy discountPolicy;
-    @Autowired MemberRepository memberRepository;
+    @Autowired MemberService memberService;
 
     //OrderService orderService ;
     //@Autowired MemberRepository memberRepository;
@@ -45,9 +45,9 @@ class OrderServiceTest {
     void fieldInjectionTest() {
 //        long memberId = 1L;
 //        Member member = new Member(memberId, "memberA", Grade.VIP);
-        ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
+//        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 //        MemberService memberService = ac.getBean("memberService", MemberService.class);
-        System.out.println("memberRepository : "   + memberRepository);
+        System.out.println("memberService : "   + memberService);
         //memberService.join(member);
 //        this.memberService.join(member);
 //        orderService.createOrder(memberId, "itemA", 10000);
