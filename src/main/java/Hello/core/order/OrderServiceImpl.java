@@ -23,6 +23,12 @@ public class OrderServiceImpl implements  OrderService{
     //private DiscountPolicy discountPolicy;
     //해결 방안 => 누군가가 클라이언트인 OrderServiceImpl 에게 discountPolicy의 구현객체(imp)를 대신 생성하고 주입해줘야 한다. (DI)
     private final DiscountPolicy discountPolicy;
+    //필드 주입
+    //지금은 잘 안쓰게 된다.
+    // 테스트 용도로 외부에서 이 repository를 변경할 수 있는 방법이 전혀 없다 쓰지말자.
+//    @Autowired private DiscountPolicy discountPolicy;
+
+//    @Autowired private MemberRepository memberRepository ;
     //생성자 주입
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
@@ -32,7 +38,10 @@ public class OrderServiceImpl implements  OrderService{
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
+        System.out.println("1111");
+        System.out.println("memberId : " + memberId);
         Member member = memberRepository.findById(memberId);
+        System.out.println("22222");
         int discountPrice = discountPolicy.discount(member, itemPrice);
 
         return new Order(memberId, itemName, itemPrice, discountPrice);

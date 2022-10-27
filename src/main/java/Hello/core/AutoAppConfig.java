@@ -35,7 +35,7 @@ public class AutoAppConfig {
     //하지만 개발자 의도와는 상관없이 설정이 꼬이는 경우가 있어서 충돌이 나게되면 exception을 내린다
     //application.properties에 setting spring.main.allow-bean-definition-overriding=true값으로 설정하면
     //Exception을 떨어뜨리지 않는다.
-    @Bean(name = "memoryMemberRepository")
+    @Bean
     MemberRepository memberRepository(){
         return new MemoryMemberRepository();
     }

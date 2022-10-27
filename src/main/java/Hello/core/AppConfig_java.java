@@ -34,6 +34,7 @@ public class AppConfig_java {
 
     public OrderService orderService() {
         return new OrderServiceImpl(memberRepository(), discountPolicy());
+        //return null;
     }
 
     public DiscountPolicy discountPolicy() {
