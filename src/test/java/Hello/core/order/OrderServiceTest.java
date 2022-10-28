@@ -16,27 +16,26 @@ import org.springframework.stereotype.Service;
 import static org.junit.jupiter.api.Assertions.*;
 class OrderServiceTest {
     ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
-    @Autowired MemberService memberService ;
-    @Autowired DiscountPolicy discountPolicy;
 
-    //OrderService orderService ;
-    //@Autowired MemberRepository memberRepository;
+    OrderService orderService ;
+    MemberService memberService;
+    MemberRepository memberRepository;
     @BeforeEach
     public void beforeEach() {
         //싱글톤 방식으로 사용하기
         //java 쪽에서 new 개념으로 만드는거라 싱글톤이 유지되지 못한다.
-//        AppConfig appConfig = new AppConfig();
-//        memberService = appConfig.memberService();
-//        orderService = appConfig.orderService();
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+        orderService = appConfig.orderService();
     }
 
     @Test
     void createOrder() {
-//        long memberId = 1L;
-//        Member member = new Member(memberId, "memberA", Grade.VIP);
-//        memberService.join(member);
-//        Order order = orderService.createOrder(memberId, "itemA", 10000);
-//        Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000);
+        long memberId = 1L;
+        Member member = new Member(memberId, "memberA", Grade.VIP);
+        memberService.join(member);
+        Order order = orderService.createOrder(memberId, "itemA", 10000);
+        Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000);
     }
 
 
