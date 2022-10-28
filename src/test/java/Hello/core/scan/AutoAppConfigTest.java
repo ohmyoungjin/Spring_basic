@@ -1,6 +1,7 @@
 package Hello.core.scan;
 
 import Hello.core.AutoAppConfig;
+import Hello.core.discount.DiscountPolicy;
 import Hello.core.member.MemberRepository;
 import Hello.core.member.MemberService;
 import Hello.core.order.OrderService;
@@ -22,7 +23,9 @@ public class AutoAppConfigTest {
 
         OrderServiceImpl bean = ac.getBean(OrderServiceImpl.class);
         MemberRepository memberRepository = bean.getMemberRepository();
+        DiscountPolicy discountPolicy = bean.getDiscountPolicy();
         System.out.println("memberRepository : " + memberRepository);
+        System.out.println("discountPolicy : " + discountPolicy);
 
     }
 }

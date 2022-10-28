@@ -17,10 +17,12 @@ public class OrderServiceImpl implements  OrderService{
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
-    @Autowired
-    private DiscountPolicy rateDiscountPolicy;
     //동일한 타입의 빈이 둘 이상 있을 시 구현체를 직접 정해줘서 구분하게 해준다
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) {
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = rateDiscountPolicy;
+//    }
+    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
@@ -34,5 +36,9 @@ public class OrderServiceImpl implements  OrderService{
 
     public MemberRepository getMemberRepository() {
         return memberRepository;
+    }
+
+    public DiscountPolicy getDiscountPolicy() {
+        return discountPolicy;
     }
 }
