@@ -30,9 +30,9 @@ public class OrderServiceImpl_notlombok implements  OrderService{
 //    @Autowired private MemberRepository memberRepository ;
     //생성자 주입 생성자가 한개면 @Autowired를 안써도 된다.
     @Autowired
-    public OrderServiceImpl_notlombok(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl_notlombok(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) {
         this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
+        this.discountPolicy = rateDiscountPolicy;
     }
 
     @Override

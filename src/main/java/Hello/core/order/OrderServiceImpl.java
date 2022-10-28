@@ -6,6 +6,7 @@ import Hello.core.member.MemberRepository;
 import Hello.core.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,6 +17,9 @@ public class OrderServiceImpl implements  OrderService{
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
+    private DiscountPolicy rateDiscountPolicy;
+    //동일한 타입의 빈이 둘 이상 있을 시 구현체를 직접 정해줘서 구분하게 해준다
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
