@@ -12,7 +12,10 @@ public class BeanLifeCycleTest {
     @Test
     public void lifeCycleTest() {
         //ApplicationContext(interface) => ConfigurableApplicationContext = > AnnotationConfigApplicationContext
+        //spring container 생성
         ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleConfig.class);
+        //생성자 호출 => 의존 관계 주입 완료 후 callback => NetworkClient.afterPropertiesSet
+        //connect() => bean close =>NetworkClient.destroy => close()
         NetworkClient client = ac.getBean(NetworkClient.class);
         ac.close();
     }
