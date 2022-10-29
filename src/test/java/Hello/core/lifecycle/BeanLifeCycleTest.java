@@ -22,7 +22,12 @@ public class BeanLifeCycleTest {
 
     @Configuration
     static class LifeCycleConfig {
-        @Bean
+        //@bean에서 제공하는 init , destory를 지정해주면 된다.
+        //destroyMethod는 기본 default 값이 (inferred) = 추론 으로 돼 있어서
+        //close , shutdown 과 같은 이름을 가진 메서드가 있으면 알아서 호출해준다
+        //그래서 밑에 destroyMethod를 따로 적어주지 않았다.
+        //destroyMethod="" 으로 하면 추론기능을 사용하지 않아서 아무것도 호출하지 않는다 (disconnect가 안된다)
+        @Bean(initMethod = "init")
         public NetworkClient networkClient() {
             NetworkClient networkClient = new NetworkClient();
             networkClient.setUrl("http://hello-spring.dev");
