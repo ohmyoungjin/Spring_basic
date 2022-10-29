@@ -54,6 +54,7 @@ public class SingletonWithPrototypeTest1 {
         //그래서 위와 같이 singletonClientUsePrototype 에서 호출 될 때 마다 ++되어서 값이 계속 증가하게 된다
         //singleton bean 안에서 호출되는 prototype bean이 아닌 prototype bean만 호출되게 되면
         //객체가 계속 생성하게 되어 1으로 고정 되지만 singleton bean안에서는 처음 한 번만 호출된다.
+        //provider를 사용하면 이와 같은 문제점을 해결할 수 있다
         @Autowired
         public ClientBean(PrototypeBean prototypeBean) {
             this.prototypeBean = prototypeBean;
