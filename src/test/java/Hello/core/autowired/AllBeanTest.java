@@ -46,6 +46,7 @@ public class AllBeanTest {
         }
 
         public int discount(Member member, int i, String discountCode) {
+            //비지니스로 직에서 다형성을 활용할 때는 최대한 한 번에 쉽게 파악할 수 있도록 하도록 설계해야 한다.
             // 맵에는 현재
             // 어떤 구현체를 쓸 건지 매개변수로 받아서 사용하는 로직이다.
             DiscountPolicy discountPolicy = policyMap.get(discountCode);
