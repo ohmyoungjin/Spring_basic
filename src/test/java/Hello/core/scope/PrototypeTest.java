@@ -26,6 +26,12 @@ public class PrototypeTest {
         Assertions.assertThat(prototypeBean1).isNotSameAs(prototypeBean2);
         Assertions.assertThat(prototypeBean1).isNotSameAs(prototypeBean3);
 
+        //prototype Scope는 객체를 생성 후 return 해준 다음 관리를 안하기 때문에
+        //ac.close => 즉, 스프링 컨테이너에서 얘를 알 수 있는 방법이 없다 그래서 직접 닫아줘야 한다
+        prototypeBean2.destroy();
+        prototypeBean2.destroy();
+        prototypeBean2.destroy();
+
         ac.close();
     }
 
