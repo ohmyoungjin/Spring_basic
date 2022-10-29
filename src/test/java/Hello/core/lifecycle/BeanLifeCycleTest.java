@@ -33,6 +33,12 @@ public class BeanLifeCycleTest {
             networkClient.setUrl("http://hello-spring.dev");
             return networkClient;
         }
+//        @Bean
+//        public NetworkClient networkClient() {
+//            NetworkClient networkClient = new NetworkClient();
+//            networkClient.setUrl("http://hello-spring.dev2");
+//            return networkClient;
+//         }
     }
 
 }
