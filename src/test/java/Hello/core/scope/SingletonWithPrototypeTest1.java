@@ -25,7 +25,9 @@ public class SingletonWithPrototypeTest1 {
 
     @Test
     void singletonClientUsePrototype() {
-        //
+        //이런식으로 bean 자체가 달라지면 singleton에서도 관리하는 bean 이 다르므로 다른 객체이다.
+//        AnnotationConfigApplicationContext ac
+//                = new AnnotationConfigApplicationContext(ClientBean.class, ClientBean2.class, PrototypeBean.class);
         AnnotationConfigApplicationContext ac
                 = new AnnotationConfigApplicationContext(ClientBean.class, PrototypeBean.class);
         ClientBean clientBean1 = ac.getBean(ClientBean.class);
@@ -34,14 +36,15 @@ public class SingletonWithPrototypeTest1 {
         Assertions.assertThat(count1).isEqualTo(1);
 
 
-        ClientBean clientBean2 = ac.getBean(ClientBean.class);
+        ClientBean2 clientBean2 = ac.getBean(ClientBean2.class);
         int count2 = clientBean2.logic();
         System.out.println("count2 : " + count2);
-        Assertions.assertThat(count2).isEqualTo(2);
+        Assertions.assertThat(count2).isEqualTo(1);
     }
 
     @Scope("singleton")
     static class ClientBean {
+        //생성시점에 주입
         private final PrototypeBean prototypeBean;
         //생성자가 한 개 이기때문에 생략 가능 , 롬복으로 처리도 가능
         //Singleton bean 안에서 prototype bean 을 호출하게 되면 처음 한 번만 가지고 있는다
@@ -53,6 +56,21 @@ public class SingletonWithPrototypeTest1 {
         //객체가 계속 생성하게 되어 1으로 고정 되지만 singleton bean안에서는 처음 한 번만 호출된다.
         @Autowired
         public ClientBean(PrototypeBean prototypeBean) {
+            this.prototypeBean = prototypeBean;
+        }
+
+        public int logic() {
+            prototypeBean.addCount();
+            return prototypeBean.getCount();
+        }
+    }
+
+    @Scope("singleton")
+    static class ClientBean2 {
+        //생성시점에 주입
+        private final PrototypeBean prototypeBean;
+        @Autowired
+        public ClientBean2(PrototypeBean prototypeBean) {
             this.prototypeBean = prototypeBean;
         }
 
