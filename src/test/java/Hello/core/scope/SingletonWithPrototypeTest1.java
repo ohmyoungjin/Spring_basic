@@ -13,7 +13,9 @@ import javax.annotation.PreDestroy;
 import javax.inject.Provider;
 
 public class SingletonWithPrototypeTest1 {
-
+    //싱글톤 안에서 prototype bean을 생성 시 문제가 생기는 것을 알아보았지만
+    //prototype bean을 사용하는 경우는 많지 않다.
+    //또한, DL (Dependency Lookup으로 어느정도 해결 가능하다)
     @Test
     void prototypeFind() {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(PrototypeBean.class);
