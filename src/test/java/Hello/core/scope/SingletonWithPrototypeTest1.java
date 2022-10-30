@@ -2,6 +2,7 @@ package Hello.core.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -71,9 +72,12 @@ public class SingletonWithPrototypeTest1 {
     @Scope("singleton")
     static class ClientBean {
         //생성시점에 주입
+        //ObjectProvider는 ObjectFactory를 상속 받아서 쓴다.
         @Autowired
         private ObjectProvider<PrototypeBean> prototypeBeanProvider;
 
+//        @Autowired
+//        private ObjectFactory<PrototypeBean> prototypeBeanFactory;
 
         public int logic() {
             PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
