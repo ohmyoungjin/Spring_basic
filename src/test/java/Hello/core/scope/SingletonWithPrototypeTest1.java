@@ -73,6 +73,8 @@ public class SingletonWithPrototypeTest1 {
     static class ClientBean {
         //생성시점에 주입
         //ObjectProvider는 ObjectFactory를 상속 받아서 쓴다.
+//        ObjectProvider 의 getObject() 를 호출하면 내부에서는 스프링 컨테이너를 통해 해당 빈을 찾아서
+//        반환한다. (DL) => Dependency Lookup
         @Autowired
         private ObjectProvider<PrototypeBean> prototypeBeanProvider;
 
