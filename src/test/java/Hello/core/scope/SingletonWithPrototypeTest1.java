@@ -2,6 +2,7 @@ package Hello.core.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -36,50 +37,64 @@ public class SingletonWithPrototypeTest1 {
         Assertions.assertThat(count1).isEqualTo(1);
 
 
-        ClientBean2 clientBean2 = ac.getBean(ClientBean2.class);
+        ClientBean clientBean2 = ac.getBean(ClientBean.class);
         int count2 = clientBean2.logic();
         System.out.println("count2 : " + count2);
         Assertions.assertThat(count2).isEqualTo(1);
     }
 
+//    @Scope("singleton")
+//    static class ClientBean {
+//        //생성시점에 주입
+//        private final PrototypeBean prototypeBean;
+//        //생성자가 한 개 이기때문에 생략 가능 , 롬복으로 처리도 가능
+//        //Singleton bean 안에서 prototype bean 을 호출하게 되면 처음 한 번만 가지고 있는다
+//        //=>원래 prototype bean으로 호출 하면 호출 될 때 마다 객체가 생성되어야 하지만
+//        //singleton bean 안에서 호출되게 되면 처음 singleton bean이 생성되는 그 시기 한 번에만 호출되어
+//        //주소값 (참조값)을 가지고 있는다
+//        //그래서 위와 같이 singletonClientUsePrototype 에서 호출 될 때 마다 ++되어서 값이 계속 증가하게 된다
+//        //singleton bean 안에서 호출되는 prototype bean이 아닌 prototype bean만 호출되게 되면
+//        //객체가 계속 생성하게 되어 1으로 고정 되지만 singleton bean안에서는 처음 한 번만 호출된다.
+//        //provider를 사용하면 이와 같은 문제점을 해결할 수 있다
+//        @Autowired
+//        public ClientBean(PrototypeBean prototypeBean) {
+//            this.prototypeBean = prototypeBean;
+//        }
+//
+//        public int logic() {
+//            prototypeBean.addCount();
+//            return prototypeBean.getCount();
+//        }
+//    }
+
+
     @Scope("singleton")
     static class ClientBean {
         //생성시점에 주입
-        private final PrototypeBean prototypeBean;
-        //생성자가 한 개 이기때문에 생략 가능 , 롬복으로 처리도 가능
-        //Singleton bean 안에서 prototype bean 을 호출하게 되면 처음 한 번만 가지고 있는다
-        //=>원래 prototype bean으로 호출 하면 호출 될 때 마다 객체가 생성되어야 하지만
-        //singleton bean 안에서 호출되게 되면 처음 singleton bean이 생성되는 그 시기 한 번에만 호출되어
-        //주소값 (참조값)을 가지고 있는다
-        //그래서 위와 같이 singletonClientUsePrototype 에서 호출 될 때 마다 ++되어서 값이 계속 증가하게 된다
-        //singleton bean 안에서 호출되는 prototype bean이 아닌 prototype bean만 호출되게 되면
-        //객체가 계속 생성하게 되어 1으로 고정 되지만 singleton bean안에서는 처음 한 번만 호출된다.
-        //provider를 사용하면 이와 같은 문제점을 해결할 수 있다
         @Autowired
-        public ClientBean(PrototypeBean prototypeBean) {
-            this.prototypeBean = prototypeBean;
-        }
+        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+
 
         public int logic() {
+            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
             prototypeBean.addCount();
             return prototypeBean.getCount();
         }
     }
-
-    @Scope("singleton")
-    static class ClientBean2 {
-        //생성시점에 주입
-        private final PrototypeBean prototypeBean;
-        @Autowired
-        public ClientBean2(PrototypeBean prototypeBean) {
-            this.prototypeBean = prototypeBean;
-        }
-
-        public int logic() {
-            prototypeBean.addCount();
-            return prototypeBean.getCount();
-        }
-    }
+//    @Scope("singleton")
+//    static class ClientBean2 {
+//        //생성시점에 주입
+//        private final PrototypeBean prototypeBean;
+//        @Autowired
+//        public ClientBean2(PrototypeBean prototypeBean) {
+//            this.prototypeBean = prototypeBean;
+//        }
+//
+//        public int logic() {
+//            prototypeBean.addCount();
+//            return prototypeBean.getCount();
+//        }
+//    }
     @Scope("prototype")
     static class PrototypeBean {
         private int count = 0;
