@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 public class SingletonWithPrototypeTest1 {
 
@@ -75,14 +76,19 @@ public class SingletonWithPrototypeTest1 {
         //ObjectProvider는 ObjectFactory를 상속 받아서 쓴다.
 //        ObjectProvider 의 getObject() 를 호출하면 내부에서는 스프링 컨테이너를 통해 해당 빈을 찾아서
 //        반환한다. (DL) => Dependency Lookup
+//        @Autowired
+//        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+        private Provider<PrototypeBean> prototypeBeanProvider;
 
 //        @Autowired
 //        private ObjectFactory<PrototypeBean> prototypeBeanFactory;
 
         public int logic() {
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            //스프링에서 재공하는 @ObjectPorvider
+            //PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            //javax.inject:javax.inject:1 에서 제공하는 Provider
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             prototypeBean.addCount();
             return prototypeBean.getCount();
         }
