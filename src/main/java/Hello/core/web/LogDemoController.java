@@ -26,7 +26,6 @@ public class LogDemoController {
     @ResponseBody
     public String logDemo(HttpServletRequest request) {
         String requestURL = request.getRequestURI().toString();
-        System.out.println("controller ! " + requestURL);
         MyLogger myLogger = myLoggerProvider.getObject();
         //Http url로 온 request 정보를 myLogger class의
         //setRequestUrl function에 담는다
