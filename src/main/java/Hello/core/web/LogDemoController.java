@@ -21,19 +21,24 @@ public class LogDemoController {
     //MyLogger은 Scope가 request이기 때문에 요청이 올 때 까지는 주입을 받지 못한다.
     //request가 올 때 생성하는 Provider를 사용해서 처리한다.
 
-    private final Provider<MyLogger> myLoggerProvider;
+    //private final Provider<MyLogger> myLoggerProvider;
 
     //private final ObjectProvider<MyLogger> myLoggerProvider;
+
+    //Proxy mode 사용
+    private final MyLogger myLogger;
 
     @RequestMapping("/log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest request) {
         String requestURL = request.getRequestURI().toString();
-        MyLogger myLogger = myLoggerProvider.get();
+
+        //MyLogger myLogger = myLoggerProvider.get();
         //MyLogger myLogger = myLoggerProvider.getObject();
         //Http url로 온 request 정보를 myLogger class의
         //setRequestUrl function에 담는다
         //myLogger class에는 @PostConstruct가 존재하기 때문에 호출과 동시에 난수를 생성한다
+        System.out.println("myLogger = " + myLogger.getClass());
         myLogger.setRequestUrl(requestURL);
 
         myLogger.log("controller test");

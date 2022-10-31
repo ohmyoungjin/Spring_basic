@@ -1,7 +1,6 @@
 package Hello.core.common;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -17,14 +16,9 @@ import java.util.UUID;
 //그러므로 이 class를 주입 받는 class에서 다른 처리를 해주지 않으면
 //No thread-bound request found , Error creating bean with name
 //이와 같은 error를 뿌리게 된다.
-//proxyMode = ScopedProxyMode.TARGET_CLASS
-//이 조건을 주게 되면
-//CGLIB 에서 해당하는 빈을 가짜로 만들어 놓은 후 (이 전에 배웠던 CGLIB 바이트 코드로 만들어놓는 느낌)
-//myLogger = class Hello.core.common.MyLogger$$EnhancerBySpringCGLIB$$ff65c64b 이렇게 생성 됨
-//먼저 주입해준 후 그다음에 진짜로 request가 와서 bean이 생성되면 그 때 진짜 bean을 주입해준다 !
 @Component
-@Scope(value="request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class MyLogger {
+@Scope(value="request")
+public class MyLogger_noProxy {
 
     private String uuid;
     private String requestURL;
