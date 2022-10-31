@@ -2,10 +2,13 @@ package Hello.core.web;
 
 import Hello.core.common.MyLogger;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -15,12 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
-    private final MyLogger myLogger;
+    //MyLogger은 Scope가 request이기 때문에 요청이 올 때 까지는 주입을 받지 못한다.
+    //request가 올 때 생성하는 Provider를 사용해서 처리한다.
+    private final ObjectProvider<MyLogger> myLoggerProvider;
 
-    @RequestMapping("log-demo")
+    @RequestMapping("/log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest request) {
         String requestURL = request.getRequestURI().toString();
+        System.out.println("controller ! " + requestURL);
+        MyLogger myLogger = myLoggerProvider.getObject();
         //Http url로 온 request 정보를 myLogger class의
         //setRequestUrl function에 담는다
         //myLogger class에는 @PostConstruct가 존재하기 때문에 호출과 동시에 난수를 생성한다
